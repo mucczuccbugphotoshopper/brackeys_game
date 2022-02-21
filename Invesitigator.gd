@@ -1,9 +1,12 @@
 extends KinematicBody2D
 
 var direction = "idle"
-var speed = 190;
+var speed = default_speed
 var held_directions = []
-export var health = 100
+
+export(int) var default_speed = 190
+export(int) var run_speed = 240
+export(int) var health = 100
 
 
 
@@ -24,9 +27,9 @@ func _physics_process(delta):
 		move_and_slide(_get_movement(direction))
 	
 	if Input.is_action_pressed("shift"):
-		speed = 240;
+		speed = run_speed
 	else:
-		speed = 190;
+		speed = default_speed
 	
 	
 	if direction == 'right':
