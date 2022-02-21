@@ -56,7 +56,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/github-integration/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/github-integration/plugin.cfg", "res://addons/godot_pixelorama_importer/plugin.cfg" )
 
 [input]
 

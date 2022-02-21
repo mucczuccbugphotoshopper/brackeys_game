@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Lamp.gd" type="Script" id=1]
 [ext_resource path="res://light2.jpg" type="Texture" id=2]
 [ext_resource path="res://assets/entities/Lamp2.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 11, 22 )
 
 [node name="RustyLampPost" type="Light2D"]
 scale = Vector2( 0.25, 0.25 )
@@ -13,3 +16,9 @@ script = ExtResource( 1 )
 [node name="Lamp2" type="Sprite" parent="."]
 position = Vector2( 0, 95 )
 texture = ExtResource( 3 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( -1, 234 )
+shape = SubResource( 1 )
