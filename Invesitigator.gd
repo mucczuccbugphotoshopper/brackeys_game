@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-var direction = "right"
-var speed = 290;
+var direction = "idle"
+var speed = 190;
 var held_directions = []
 export var health = 100
 
@@ -9,7 +9,7 @@ export var health = 100
 
 func _physics_process(delta):
 	for dir in ["left","right","up","down"]:
-		var is_pressed = Input.is_action_pressed("ui_"+dir)
+		var is_pressed = Input.is_action_pressed("move_"+dir)
 		var index_of_direction = held_directions.find(dir)
 		if index_of_direction == -1:
 			if is_pressed:
@@ -23,6 +23,10 @@ func _physics_process(delta):
 		direction = held_directions[0]
 		move_and_slide(_get_movement(direction))
 	
+	if Input.is_action_pressed("shift"):
+		speed = 240;
+	else:
+		speed = 190;
 	
 	
 	if direction == 'right':
