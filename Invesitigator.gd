@@ -7,24 +7,22 @@ var held_directions = []
 export(int) var default_speed = 190
 export(int) var run_speed = 240
 export(int) var health = 100
+var Velocity = Vector2()
 
 
 
 func _physics_process(delta):
-	for dir in ["left","right","up","down"]:
-		var is_pressed = Input.is_action_pressed("move_"+dir)
-		var index_of_direction = held_directions.find(dir)
-		if index_of_direction == -1:
-			if is_pressed:
-				held_directions.push_front(dir)
-		else:
-			if !is_pressed:
-				held_directions.remove(index_of_direction)
-				direction = 'idle'
-
-	if held_directions.size() > 0:
-		direction = held_directions[0]
-		move_and_slide(_get_movement(direction))
+	Velocity = Vector2()
+	if Input.is_action_pressed("move_right"):
+		Velocity.x = speed
+		$Character.flip_h = false
+	if Input.is_action_pressed("move_left"):
+		Velocity.x = -speed
+		$Character.flip_h = false 
+	if Input.is_action_pressed("move_down"):
+		Velocity.y = speed 
+	if Input.is_action_pressed("move_up"):
+		Velocity.y = -speed 
 	
 	if Input.is_action_pressed("shift"):
 		speed = run_speed
@@ -32,21 +30,15 @@ func _physics_process(delta):
 		speed = default_speed
 	
 	
-	if direction == 'right':
+	if Velocity.length() > 0:
 		$anim_player.play("walking")
-		$Character.flip_h = false
-	elif direction == 'left':
-		$anim_player.play("walking")
-		$Character.flip_h = true
-	elif direction == 'up':
-		$anim_player.play("walking")
-	elif direction == 'down':
-		$anim_player.play("walking")
+		
 	else:
 		$anim_player.play("idle")
 		$Character.rotation_degrees = 0
 		
-
+	Velocity = move_and_slide(Velocity)
+	
 func _get_movement(dir):
 	var vectors = {
 		"left" : Vector2(-speed,0),
