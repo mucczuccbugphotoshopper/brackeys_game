@@ -22,7 +22,7 @@ glow_strength = 0.49
 glow_bloom = 0.09
 glow_blend_mode = 0
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="ConvexPolygonShape2D" id=6]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 
 [sub_resource type="TileSet" id=2]
@@ -36,19 +36,19 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 1 )
+0/shape = SubResource( 6 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 1 ),
+"shape": SubResource( 6 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
 
-[sub_resource type="Shader" id=4]
+[sub_resource type="Shader" id=7]
 code = "
 
 shader_type canvas_item;
@@ -250,7 +250,7 @@ void fragment()
 }"
 
 [sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
+shader = SubResource( 7 )
 shader_param/overlay = false
 shader_param/scanlines_opacity = 0.4
 shader_param/scanlines_width = 0.25
@@ -394,3 +394,4 @@ position = Vector2( 558.072, 282.039 )
 rotation = -3.13639
 scale = Vector2( 19.0177, 11.0991 )
 texture = ExtResource( 3 )
+flip_h = true
