@@ -1,6 +1,6 @@
 # Brackeys Game
 
-![GitHub Repo stars](https://img.shields.io/github/star/smucczuccbugphotoshopper/brackeys_game?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/mucczuccbugphotoshopper/brackeys_game?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/mucczuccbugphotoshopper/brackeys_game?style=social)
 
 ![GitHub top language](https://img.shields.io/github/languages/top/mucczuccbugphotoshopper/brackeys_game)
