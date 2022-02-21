@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Invesitigator.tscn" type="PackedScene" id=1]
 [ext_resource path="res://item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://Camera2D.gd" type="Script" id=4]
-[ext_resource path="res://light.jpg" type="Texture" id=5]
-[ext_resource path="res://Lamp.gd" type="Script" id=6]
+[ext_resource path="res://LampPost.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Environment" id=3]
 background_mode = 4
@@ -255,22 +254,22 @@ shader_param/overlay = false
 shader_param/scanlines_opacity = 0.4
 shader_param/scanlines_width = 0.25
 shader_param/grille_opacity = 0.3
-shader_param/resolution = Vector2( 640, 480 )
-shader_param/pixelate = true
+shader_param/resolution = Vector2( 1280, 960 )
+shader_param/pixelate = false
 shader_param/roll = true
-shader_param/roll_speed = 8.0
-shader_param/roll_size = 15.0
-shader_param/roll_variation = 1.8
-shader_param/distort_intensity = 0.05
-shader_param/noise_opacity = 0.4
-shader_param/noise_speed = 5.0
+shader_param/roll_speed = 3.0
+shader_param/roll_size = 10.0
+shader_param/roll_variation = 4.0
+shader_param/distort_intensity = 0.2
+shader_param/noise_opacity = 0.5
+shader_param/noise_speed = 1.0
 shader_param/static_noise_intensity = 0.06
-shader_param/aberration = 0.03
+shader_param/aberration = -0.015
 shader_param/brightness = 1.4
 shader_param/discolor = true
 shader_param/warp_amount = 1.0
 shader_param/clip_warp = false
-shader_param/vignette_intensity = 0.4
+shader_param/vignette_intensity = 0.3
 shader_param/vignette_opacity = 0.5
 
 [node name="Game" type="Node2D"]
@@ -314,77 +313,32 @@ position = Vector2( 281, 338 )
 
 [node name="Lamps" type="MultiMeshInstance2D" parent="."]
 
-[node name="RustyLampPost" type="Light2D" parent="Lamps"]
-position = Vector2( 768, 289 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
+[node name="RustyLampPost" parent="Lamps" instance=ExtResource( 5 )]
+position = Vector2( 803, 263 )
 
-[node name="RustyLampPost2" type="Light2D" parent="Lamps"]
-position = Vector2( 174, 267 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
+[node name="RustyLampPost2" parent="Lamps" instance=ExtResource( 5 )]
+position = Vector2( 151, 403 )
 
-[node name="RustyLampPost3" type="Light2D" parent="Lamps"]
-position = Vector2( 631, -2 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
+[node name="RustyLampPost3" parent="Lamps" instance=ExtResource( 5 )]
+position = Vector2( 620, 430 )
 
-[node name="RustyLampPost4" type="Light2D" parent="Lamps"]
-position = Vector2( 629, 389 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
+[node name="RustyLampPost4" parent="Lamps" instance=ExtResource( 5 )]
+position = Vector2( 362, 217 )
 
-[node name="RustyLampPost5" type="Light2D" parent="Lamps"]
-position = Vector2( 367, 252 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
+[node name="RustyLampPost5" parent="Lamps" instance=ExtResource( 5 )]
+position = Vector2( 723, -107 )
 
-[node name="RustyLampPost6" type="Light2D" parent="Lamps"]
-position = Vector2( 400, 48 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
+[node name="RustyLampPost6" parent="Lamps" instance=ExtResource( 5 )]
+position = Vector2( 379, -166 )
 
-[node name="RustyLampPost7" type="Light2D" parent="Lamps"]
-position = Vector2( 924, -333 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
+[node name="RustyLampPost7" parent="Lamps" instance=ExtResource( 5 )]
+position = Vector2( 236, -379 )
 
-[node name="RustyLampPost8" type="Light2D" parent="Lamps"]
-position = Vector2( 686, -422 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
+[node name="RustyLampPost8" parent="Lamps" instance=ExtResource( 5 )]
+position = Vector2( 906, -406 )
 
-[node name="RustyLampPost9" type="Light2D" parent="Lamps"]
-position = Vector2( 211, -350 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
-
-[node name="RustyLampPost10" type="Light2D" parent="Lamps"]
-position = Vector2( 467, -188 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
-
-[node name="RustyLampPost11" type="Light2D" parent="Lamps"]
-position = Vector2( 778, -202 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
-
-[node name="RustyLampPost12" type="Light2D" parent="Lamps"]
-position = Vector2( 433, -381 )
-texture = ExtResource( 5 )
-texture_scale = 0.5
-script = ExtResource( 6 )
+[node name="RustyLampPost9" parent="Lamps" instance=ExtResource( 5 )]
+position = Vector2( 565, -420 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

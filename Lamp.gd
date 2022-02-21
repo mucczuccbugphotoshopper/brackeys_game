@@ -4,4 +4,4 @@ var rng = RandomNumberGenerator.new()
 
 func _ready():
 	rng.randomize()
-	self.energy = rng.randf_range(0.5, 2)
+	self.energy = rng.randf_range(1.5, 2.5)
