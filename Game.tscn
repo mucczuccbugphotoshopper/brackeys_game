@@ -22,32 +22,6 @@ glow_strength = 0.49
 glow_bloom = 0.09
 glow_blend_mode = 0
 
-[sub_resource type="ConvexPolygonShape2D" id=6]
-points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
-
-[sub_resource type="TileSet" id=2]
-0/name = "icon.png 0"
-0/texture = ExtResource( 3 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 64, 64 )
-0/tile_mode = 0
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 6 )
-0/shape_one_way = false
-0/shape_one_way_margin = 1.0
-0/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 6 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-} ]
-0/z_index = 0
-
 [sub_resource type="Shader" id=7]
 code = "
 
@@ -273,7 +247,36 @@ shader_param/clip_warp = false
 shader_param/vignette_intensity = 0.3
 shader_param/vignette_opacity = 0.5
 
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
+
+[sub_resource type="TileSet" id=2]
+0/name = "icon.png 0"
+0/texture = ExtResource( 3 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 6 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+
 [node name="Game" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
 
 [node name="WorldBg" type="Control" parent="."]
 margin_left = -2560.0
@@ -293,8 +296,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 3 )
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Dialoge_system" parent="CanvasLayer" instance=ExtResource( 6 )]
+
+[node name="Icon" type="Sprite" parent="CanvasLayer"]
+material = SubResource( 5 )
+position = Vector2( 560, 249 )
+rotation = -3.13639
+scale = Vector2( 19.0177, 11.0991 )
+texture = ExtResource( 3 )
+flip_h = true
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 2 )
@@ -325,7 +337,7 @@ position = Vector2( 151, 403 )
 position = Vector2( 620, 430 )
 
 [node name="RustyLampPost4" parent="Lamps" instance=ExtResource( 5 )]
-position = Vector2( 362, 217 )
+position = Vector2( 241, 267 )
 
 [node name="RustyLampPost5" parent="Lamps" instance=ExtResource( 5 )]
 position = Vector2( 723, -107 )
@@ -341,15 +353,3 @@ position = Vector2( 906, -406 )
 
 [node name="RustyLampPost9" parent="Lamps" instance=ExtResource( 5 )]
 position = Vector2( 565, -420 )
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Dialoge_system" parent="CanvasLayer" instance=ExtResource( 6 )]
-
-[node name="Icon" type="Sprite" parent="CanvasLayer"]
-material = SubResource( 5 )
-position = Vector2( 560, 249 )
-rotation = -3.13639
-scale = Vector2( 19.0177, 11.0991 )
-texture = ExtResource( 3 )
-flip_h = true
