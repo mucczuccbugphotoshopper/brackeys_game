@@ -5,7 +5,7 @@ var speed = default_speed
 var held_directions = []
 
 export(int) var default_speed = 190
-export(int) var run_speed = 240
+export(int) var run_speed = 285
 export(int) var health = 100
 var Velocity = Vector2()
 

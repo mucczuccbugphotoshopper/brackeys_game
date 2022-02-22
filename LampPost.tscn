@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Lamp.gd" type="Script" id=1]
 [ext_resource path="res://light2.jpg" type="Texture" id=2]
 [ext_resource path="res://assets/entities/Lamp2.png" type="Texture" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11, 22 )
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 48, 18 )
+
+[sub_resource type="OccluderPolygon2D" id=3]
+polygon = PoolVector2Array( 48, 280, -44, 280, -48, 268, -36, 268, -36, 260, -24, 260, -24, 244, -12, 248, -12, 80, -24, 80, -24, 68, -16, 68, -16, 40, 12, 40, 12, 68, 28, 68, 28, 84, 12, 80, 12, 244, 28, 244, 28, 260, 36, 256, 36, 268, 44, 268 )
+
+[sub_resource type="OccluderPolygon2D" id=4]
+polygon = PoolVector2Array( -36, -36, 36, -36, 36, -56, 4, -88, -4, -88, -44, -48, -44, -36 )
 
 [node name="RustyLampPost" type="Light2D"]
 scale = Vector2( 0.25, 0.25 )
@@ -19,6 +25,12 @@ texture = ExtResource( 3 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( -1, 234 )
-shape = SubResource( 1 )
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 0, 262 )
+shape = SubResource( 2 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 3 )
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
+occluder = SubResource( 4 )
