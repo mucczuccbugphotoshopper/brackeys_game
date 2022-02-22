@@ -5,7 +5,7 @@ var speed = default_speed
 var held_directions = []
 
 export(int) var default_speed = 190
-export(int) var run_speed = 285
+export(int) var run_speed = 240
 export(int) var health = 100
 var Velocity = Vector2()
 
@@ -15,14 +15,16 @@ func _physics_process(delta):
 	Velocity = Vector2()
 	if Input.is_action_pressed("move_right"):
 		Velocity.x = speed
-		$Character.flip_h = false
+		$Character.texture = load("res://assets/characters/blue char/blue char left.png")
 	if Input.is_action_pressed("move_left"):
-		Velocity.x = -speed
-		$Character.flip_h = false 
+		Velocity.x = -speed		
+		$Character.texture = load("res://assets/characters/blue char/blue char right.png")
 	if Input.is_action_pressed("move_down"):
-		Velocity.y = speed 
+		Velocity.y = speed
+		$Character.texture = load("res://assets/characters/blue char/blue char.png") 
 	if Input.is_action_pressed("move_up"):
-		Velocity.y = -speed 
+		Velocity.y = -speed
+		$Character.texture = load("res://assets/characters/blue char/blue char.png") 
 	
 	if Input.is_action_pressed("shift"):
 		speed = run_speed
@@ -36,6 +38,7 @@ func _physics_process(delta):
 	else:
 		$anim_player.play("idle")
 		$Character.rotation_degrees = 0
+		$Character.texture = load("res://assets/characters/blue char/blue char.png")
 		
 	Velocity = move_and_slide(Velocity)
 	
