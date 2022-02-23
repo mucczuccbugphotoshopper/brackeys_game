@@ -1,20 +1,17 @@
 extends Area2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimationPlayer.play("item")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	pass
 
 
 func _on_item_body_entered(body):
-	queue_free()
+	print(body.name)
+	if body.name == "Invesitigator":
+		$AnimationPlayer.play("got eem")
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "got eem":
+		queue_free()
