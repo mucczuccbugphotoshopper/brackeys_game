@@ -1,8 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Invesitigator.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/Character.png" type="Texture" id=2]
-[ext_resource path="res://transition_camera.gd" type="Script" id=3]
+[ext_resource path="res://assets/entities/Pistol.png" type="Texture" id=3]
+[ext_resource path="res://gun.gd" type="Script" id=4]
+[ext_resource path="res://light.jpg" type="Texture" id=5]
+[ext_resource path="res://assets/entities/Flashlight_1.png" type="Texture" id=6]
+[ext_resource path="res://light.gd" type="Script" id=7]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -147,8 +151,33 @@ texture = ExtResource( 2 )
 position = Vector2( 1, -11 )
 shape = SubResource( 10 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-smoothing_enabled = true
-smoothing_speed = 4.0
-script = ExtResource( 3 )
+[node name="gun" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Pistol" type="Sprite" parent="gun"]
+visible = false
+position = Vector2( 23, -3 )
+scale = Vector2( 0.170408, 0.152367 )
+texture = ExtResource( 3 )
+
+[node name="Position2D" type="Position2D" parent="gun"]
+position = Vector2( 48, -9 )
+
+[node name="light" type="Node2D" parent="."]
+rotation = 0.00592267
+script = ExtResource( 7 )
+
+[node name="Flashlight1" type="Sprite" parent="light"]
+visible = false
+position = Vector2( 23, -0.135986 )
+rotation = 1.5622
+scale = Vector2( 0.165629, 0.169243 )
+texture = ExtResource( 6 )
+
+[node name="Light2D" type="Light2D" parent="light/Flashlight1"]
+visible = false
+position = Vector2( -0.688965, -372.103 )
+rotation = -3.1345
+scale = Vector2( 1.22205, 1.70994 )
+texture = ExtResource( 5 )
+energy = 4.0

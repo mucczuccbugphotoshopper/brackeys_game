@@ -15,7 +15,6 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
-func _on_item_body_entered(body):
+func _on_flashlight_body_entered(body):
 	queue_free()
-	body.gun_mode = true
+	body.light_mode = true

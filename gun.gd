@@ -1,21 +1,17 @@
-extends Area2D
+extends Node2D
 
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var shoot = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimationPlayer.play("item")
+	pass # Replace with function body.
 
-
+func _physics_process(delta):
+	look_at(get_global_mouse_position())
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
-
-func _on_item_body_entered(body):
-	queue_free()
-	body.gun_mode = true
