@@ -1,20 +1,17 @@
-extends Area2D
+extends CanvasLayer
 
 
 # Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# var a: int = 2
+# var b: String = "text"
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	$AnimationPlayer.play("item")
+func _ready() -> void:
+	pass
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
+#func _process(delta: float) -> void:
 #	pass
-
-
-func _on_item_body_entered(body):
-	queue_free()

@@ -14,16 +14,16 @@ var Velocity = Vector2()
 func _physics_process(delta):
 	Velocity = Vector2()
 	if Input.is_action_pressed("move_right"):
-		Velocity.x = speed
+		Velocity.x += speed
 		$Character.texture = load("res://assets/characters/blue char/blue char left.png")
 	if Input.is_action_pressed("move_left"):
-		Velocity.x = -speed		
+		Velocity.x -= speed		
 		$Character.texture = load("res://assets/characters/blue char/blue char right.png")
 	if Input.is_action_pressed("move_down"):
-		Velocity.y = speed
+		Velocity.y += speed
 		$Character.texture = load("res://assets/characters/blue char/blue char.png") 
 	if Input.is_action_pressed("move_up"):
-		Velocity.y = -speed
+		Velocity.y -= speed
 		$Character.texture = load("res://assets/characters/blue char/blue char.png") 
 	
 	if Input.is_action_pressed("shift"):
@@ -41,6 +41,8 @@ func _physics_process(delta):
 		$Character.texture = load("res://assets/characters/blue char/blue char.png")
 		
 	Velocity = move_and_slide(Velocity)
+	
+	print(Velocity)
 	
 func _get_movement(dir):
 	var vectors = {

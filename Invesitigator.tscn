@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Invesitigator.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/Character.png" type="Texture" id=2]
+[ext_resource path="res://transition_camera.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -145,3 +146,9 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 1, -11 )
 shape = SubResource( 10 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+smoothing_speed = 4.0
+script = ExtResource( 3 )
