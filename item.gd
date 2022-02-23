@@ -8,7 +8,7 @@ func _ready():
 
 func _on_item_body_entered(body):
 	print(body.name)
-	if body.name == "Invesitigator":
+	if body.name == "Investigator":
 		$AnimationPlayer.play("got eem")
 
 

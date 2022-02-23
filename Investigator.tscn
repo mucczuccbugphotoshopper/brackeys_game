@@ -127,7 +127,7 @@ tracks/1/keys = {
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 14.125, 23.1875 )
 
-[node name="Investigation" type="KinematicBody2D"]
+[node name="Investigatior" type="KinematicBody2D"]
 position = Vector2( 483, 305 )
 script = ExtResource( 1 )
 
