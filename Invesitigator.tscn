@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Invesitigator.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/Character.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://light.jpg" type="Texture" id=5]
 [ext_resource path="res://assets/entities/Flashlight_1.png" type="Texture" id=6]
 [ext_resource path="res://light.gd" type="Script" id=7]
+[ext_resource path="res://can.gd" type="Script" id=8]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -130,7 +131,10 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 14.125, 23.1875 )
+extents = Vector2( 14.125, 18.0938 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 29, 33.5 )
 
 [node name="Invesitigator" type="KinematicBody2D"]
 position = Vector2( 483, 305 )
@@ -148,7 +152,7 @@ scale = Vector2( 0.483607, 0.463636 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1, -11 )
+position = Vector2( 1, -5.90625 )
 shape = SubResource( 10 )
 
 [node name="gun" type="Node2D" parent="."]
@@ -181,3 +185,15 @@ rotation = -3.1345
 scale = Vector2( 1.22205, 1.70994 )
 texture = ExtResource( 5 )
 energy = 4.0
+
+[node name="collider" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collider"]
+position = Vector2( 1, -11.5 )
+shape = SubResource( 11 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource( 8 )
+
+[connection signal="body_entered" from="collider" to="." method="_on_collider_body_entered"]
+[connection signal="body_entered" from="collider" to="CanvasLayer" method="_on_collider_body_entered"]

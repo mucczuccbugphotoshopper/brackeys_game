@@ -17,5 +17,7 @@ func _ready():
 
 
 func _on_item_body_entered(body):
-	queue_free()
-	body.gun_mode = true
+	if "Invesitigator" in body.name:
+		if not body.light_mode:
+			queue_free()
+		body.gun_mode = true

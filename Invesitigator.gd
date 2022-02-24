@@ -32,13 +32,14 @@ func _physics_process(delta):
 		speed = run_speed
 	else:
 		speed = default_speed
-	
-	if gun_mode:
-		$gun/Pistol.visible = true
-	
-	if light_mode:
-		$light/Flashlight1/Light2D.visible = true
-		$light/Flashlight1.visible = true
+	if not light_mode:
+		if gun_mode:
+			$gun/Pistol.visible = true
+			
+	if not gun_mode:
+		if light_mode:
+			$light/Flashlight1/Light2D.visible = true
+			$light/Flashlight1.visible = true
 		
 	if Velocity.length() > 0:
 		$anim_player.play("walking")
@@ -65,3 +66,5 @@ func _input(event):
 		get_parent().add_child(bullet_instance)
 		bullet_instance.global_position = $gun/Position2D.global_position
 		bullet_instance.rotation = $gun.rotation
+
+

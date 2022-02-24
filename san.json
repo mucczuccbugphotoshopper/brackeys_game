@@ -1,3 +1,5 @@
 [
-	{ "Name" : "Rick astley", "Text" : "Never gonna give you up!" }
+    { "Name" : "Ash", "Text" : "What do You Like?" },
+    { "Name" : "npc", "Text" : "I like Imposter" },
+    { "Name" : "Ash", "Text" : "You are definelty fake" }
 ]
