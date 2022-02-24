@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Invesitigator.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Investigator.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/tileset/tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://LampPost.tscn" type="PackedScene" id=3]
 
