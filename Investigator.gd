@@ -11,6 +11,8 @@ var Velocity = Vector2()
 var gun_mode = false
 var light_mode = false
 var bullet = preload("res://bullet.tscn")
+export(PackedScene) var gunscene = preload("res://gun.tscn")
+export(PackedScene) var flashlightscene = preload("res://flashlight.tscn")
 
 
 func _physics_process(delta):
@@ -34,13 +36,19 @@ func _physics_process(delta):
 		speed = default_speed
 	
 	if gun_mode:
-		light_mode = false
+		if light_mode:
+			light_mode = false
+			var instance = flashlightscene.instance()
+			add_child(instance)
 		$light/Flashlight1/Light2D.visible = false
 		$light/Flashlight1.visible = false
 		$gun/Pistol.visible = true
 	
 	if light_mode:
-		gun_mode = false
+		if gun_mode:
+			gun_mode = false
+			var instance = gunscene.instance()
+			add_child(instance)
 		$gun/Pistol.visible = false
 		$light/Flashlight1/Light2D.visible = true
 		$light/Flashlight1.visible = true
