@@ -4,4 +4,5 @@ var rng = RandomNumberGenerator.new()
 
 func _ready():
 	rng.randomize()
-	self.energy = rng.randf_range(1.5, 2.5)
+func _physics_process(delta):
+	self.energy = rng.randf_range(0.5, 1)

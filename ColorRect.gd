@@ -1,15 +1,16 @@
-extends ColorRect
+extends Control
 
 export var dialogPath = ""
 export (float)  var text_speed = 0.05
 
 var dialog
-
+var counter = 0
 var PhraseNum = 0
 var finished = false
-
+var Player 
 func _ready():
-	$Timer.wait_time = text_speed
+	Player = load("res://Invesitigator.tscn")
+	$ColorRect/Timer.wait_time = text_speed
 	dialog = getDialog()
 	nextPhrase()
 
@@ -17,6 +18,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		if finished:
 			nextPhrase()
+			var Player_InsTance = Player.instance()
+			counter += 1
+			
 	
 
 func getDialog() -> Array:
@@ -36,20 +40,20 @@ func getDialog() -> Array:
 
 func nextPhrase() -> void:
 	if PhraseNum >= len(dialog):
-		queue_free()
+		visible = false
 		return
 	
 	finished = false
-	$Name.bbcode_text = dialog[PhraseNum]["Name"]
-	$Text.bbcode_text = dialog[PhraseNum]["Text"]
+	$ColorRect/Name.bbcode_text = dialog[PhraseNum]["Name"]
+	$ColorRect/Text.bbcode_text = dialog[PhraseNum]["Text"]
 	
-	$Text.visible_characters = 0
+	$ColorRect/Text.visible_characters = 0
 	
-	while $Text.visible_characters < len($Text.text):
-		$Text.visible_characters += 1
+	while $ColorRect/Text.visible_characters < len($ColorRect/Text.text):
+		$ColorRect/Text.visible_characters += 1
 		
-		$Timer.start()
-		yield($Timer,"timeout")
+		$ColorRect/Timer.start()
+		yield($ColorRect/Timer,"timeout")
 	
 	finished = true
 	PhraseNum += 1

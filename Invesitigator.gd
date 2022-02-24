@@ -11,7 +11,7 @@ var Velocity = Vector2()
 var gun_mode = false
 var light_mode = false
 var bullet = preload("res://bullet.tscn")
-
+var shoot = false
 
 func _physics_process(delta):
 	Velocity = Vector2()
@@ -35,11 +35,13 @@ func _physics_process(delta):
 	if not light_mode:
 		if gun_mode:
 			$gun/Pistol.visible = true
+			shoot = true
 			
 	if not gun_mode:
 		if light_mode:
 			$light/Flashlight1/Light2D.visible = true
 			$light/Flashlight1.visible = true
+			shoot = false
 		
 	if Velocity.length() > 0:
 		$anim_player.play("walking")
@@ -61,10 +63,11 @@ func _get_movement(dir):
 	return vectors[dir]
 
 func _input(event):
-	if event is InputEventMouseButton and event.is_pressed():
-		var bullet_instance = bullet.instance()
-		get_parent().add_child(bullet_instance)
-		bullet_instance.global_position = $gun/Position2D.global_position
-		bullet_instance.rotation = $gun.rotation
+	if shoot:
+		if event is InputEventMouseButton and event.is_pressed():
+			var bullet_instance = bullet.instance()
+			get_parent().add_child(bullet_instance)
+			bullet_instance.global_position = $gun/Position2D.global_position
+			bullet_instance.rotation = $gun.rotation
 
 
