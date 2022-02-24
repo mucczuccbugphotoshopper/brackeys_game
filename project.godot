@@ -28,12 +28,24 @@ _global_script_classes=[ {
 "class": "RepositoryItem",
 "language": "GDScript",
 "path": "res://addons/github-integration/scripts/RepositoryItem.gd"
+}, {
+"base": "Reference",
+"class": "SfxrGenerator",
+"language": "GDScript",
+"path": "res://addons/godot_sfxr/SfxrGenerator.gd"
+}, {
+"base": "Object",
+"class": "SfxrGlobals",
+"language": "GDScript",
+"path": "res://addons/godot_sfxr/SfxrGlobals.gd"
 } ]
 _global_script_class_icons={
 "ContributorClass": "",
 "GistItem": "",
 "InvitationItem": "",
-"RepositoryItem": ""
+"RepositoryItem": "",
+"SfxrGenerator": "",
+"SfxrGlobals": ""
 }
 
 [application]
@@ -56,7 +68,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/github-integration/plugin.cfg", "res://addons/godot_editor_discord_presence/plugin.cfg", "res://addons/godot_pixelorama_importer/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/github-integration/plugin.cfg", "res://addons/godot_sfxr/plugin.cfg" )
 
 [input]
 

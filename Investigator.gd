@@ -11,8 +11,6 @@ var Velocity = Vector2()
 var gun_mode = false
 var light_mode = false
 var bullet = preload("res://bullet.tscn")
-export(PackedScene) var gunscene = preload("res://gun.tscn")
-export(PackedScene) var flashlightscene = preload("res://flashlight.tscn")
 
 
 func _physics_process(delta):
@@ -36,19 +34,12 @@ func _physics_process(delta):
 		speed = default_speed
 	
 	if gun_mode:
-		if light_mode:
-			light_mode = false
-			var instance = flashlightscene.instance()
-			add_child(instance)
+		light_mode = false
 		$light/Flashlight1/Light2D.visible = false
 		$light/Flashlight1.visible = false
 		$gun/Pistol.visible = true
-	
 	if light_mode:
-		if gun_mode:
-			gun_mode = false
-			var instance = gunscene.instance()
-			add_child(instance)
+		gun_mode = false
 		$gun/Pistol.visible = false
 		$light/Flashlight1/Light2D.visible = true
 		$light/Flashlight1.visible = true
@@ -60,6 +51,7 @@ func _physics_process(delta):
 		$anim_player.play("idle")
 		$Character.rotation_degrees = 0
 		$Character.texture = load("res://assets/characters/blue char/blue char.png")
+	
 		
 	Velocity = move_and_slide(Velocity)
 	
@@ -79,3 +71,4 @@ func _input(event):
 			get_parent().add_child(bullet_instance)
 			bullet_instance.global_position = $gun/Position2D.global_position
 			bullet_instance.rotation = $gun.rotation
+			$SFX/Shoot.play()
