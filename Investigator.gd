@@ -34,9 +34,14 @@ func _physics_process(delta):
 		speed = default_speed
 	
 	if gun_mode:
+		light_mode = false
+		$light/Flashlight1/Light2D.visible = false
+		$light/Flashlight1.visible = false
 		$gun/Pistol.visible = true
 	
 	if light_mode:
+		gun_mode = false
+		$gun/Pistol.visible = false
 		$light/Flashlight1/Light2D.visible = true
 		$light/Flashlight1.visible = true
 		
@@ -60,8 +65,9 @@ func _get_movement(dir):
 	return vectors[dir]
 
 func _input(event):
-	if event is InputEventMouseButton and event.is_pressed():
-		var bullet_instance = bullet.instance()
-		get_parent().add_child(bullet_instance)
-		bullet_instance.global_position = $gun/Position2D.global_position
-		bullet_instance.rotation = $gun.rotation
+	if gun_mode:
+		if event is InputEventMouseButton and event.is_pressed():
+			var bullet_instance = bullet.instance()
+			get_parent().add_child(bullet_instance)
+			bullet_instance.global_position = $gun/Position2D.global_position
+			bullet_instance.rotation = $gun.rotation
