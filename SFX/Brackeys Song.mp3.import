@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Brackeys Song.mp3-e2aa261cfa4e40f7eecb4c923e853cc7.mp3str"
+
+[deps]
+
+source_file="res://SFX/Brackeys Song.mp3"
+dest_files=[ "res://.import/Brackeys Song.mp3-e2aa261cfa4e40f7eecb4c923e853cc7.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

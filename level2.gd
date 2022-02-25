@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var Dia = get_node("CanvasLayer/Dialoge_system")
-onready var Player = get_node("Invesitigator")
+onready var Player = get_node("Investigator")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

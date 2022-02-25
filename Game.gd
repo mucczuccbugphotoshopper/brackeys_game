@@ -4,7 +4,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var PLayer = get_node("Invesitigator")
+onready var Player = get_node("Investigator")
 onready var Dia = get_node("CanvasLayer/Dialoge_system")
 onready var Npc = get_node("Npc")
 onready var timer := $Timer
@@ -13,7 +13,7 @@ func _ready():
 	pass
 var p
 func _physics_process(delta):
-	PLayer.speed = 0
+	Player.speed = 0
 	p = rand_range(2,15)
 	#if Dia.counter > 6:
 		#PLayer.gun_mode = true
