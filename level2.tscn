@@ -56,20 +56,6 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 [node name="level2" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="Investigator" parent="." instance=ExtResource( 1 )]
-position = Vector2( -153, -56 )
-
-[node name="Camera2D" type="Camera2D" parent="Investigator"]
-position = Vector2( -651, -342 )
-current = true
-limit_left = -1180
-limit_top = -340
-limit_right = 250
-limit_bottom = 250
-smoothing_enabled = true
-smoothing_speed = 4.0
-script = ExtResource( 5 )
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 9 )
 cell_size = Vector2( 32, 32 )
@@ -115,7 +101,7 @@ dialogPath = "res://level2.json"
 
 [node name="Icon" parent="CanvasLayer" index="1"]
 visible = true
-position = Vector2( 488, 290 )
+position = Vector2( 512.014, 308.229 )
 scale = Vector2( 16.043, 9.7144 )
 
 [node name="gun" parent="." instance=ExtResource( 8 )]
@@ -129,5 +115,19 @@ position = Vector2( -519, -19 )
 
 [node name="Npc" parent="." instance=ExtResource( 10 )]
 position = Vector2( -841, 6 )
+
+[node name="Investigator" parent="." instance=ExtResource( 1 )]
+position = Vector2( -153, -56 )
+
+[node name="Camera2D" type="Camera2D" parent="Investigator"]
+position = Vector2( -651, -342 )
+current = true
+limit_left = -1180
+limit_top = -340
+limit_right = 250
+limit_bottom = 250
+smoothing_enabled = true
+smoothing_speed = 4.0
+script = ExtResource( 5 )
 
 [editable path="CanvasLayer"]

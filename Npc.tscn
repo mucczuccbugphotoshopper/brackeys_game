@@ -67,6 +67,5 @@ script = ExtResource( 3 )
 
 [connection signal="area_entered" from="collider" to="." method="_on_collider_area_entered"]
 [connection signal="body_entered" from="collider" to="." method="_on_collider_body_entered"]
-[connection signal="body_entered" from="collider" to="CanvasLayer" method="_on_collider_body_entered"]
 [connection signal="body_exited" from="collider" to="." method="_on_collider_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -12,6 +12,8 @@ func _physics_process(delta):
 
 
 func _on_bullet_body_entered(body):
-	queue_free()
+	if "Npc" in body.name:
+		body.queue_free()
+	call_deferred("queue_free")
 
 
