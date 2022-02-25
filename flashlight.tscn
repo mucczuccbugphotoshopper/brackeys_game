@@ -30,7 +30,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, -6 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Flashlight1:position")
+tracks/2/path = NodePath("Icon:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -71,7 +71,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, -6 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Flashlight1:position")
+tracks/2/path = NodePath("Icon:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -89,7 +89,7 @@ extents = Vector2( 19, 31.75 )
 [node name="flashlight" type="Area2D"]
 script = ExtResource( 2 )
 
-[node name="Flashlight1" type="Sprite" parent="."]
+[node name="Icon" type="Sprite" parent="."]
 position = Vector2( 1.90735e-06, 17 )
 rotation = 1.58825
 scale = Vector2( 0.136044, 0.152619 )
