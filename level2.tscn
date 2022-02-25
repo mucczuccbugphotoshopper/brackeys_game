@@ -1,3 +1,23 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Invesitigator.tscn" type="PackedScene" id=1]
+[ext_resource path="res://CanvasLayer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://level2.gd" type="Script" id=3]
 
 [node name="level2" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Invesitigator" parent="." instance=ExtResource( 1 )]
+position = Vector2( 586, 307 )
+
+[node name="CanvasLayer" parent="." instance=ExtResource( 2 )]
+
+[node name="Dialoge_system" parent="CanvasLayer" index="0"]
+dialogPath = "res://level2.json"
+
+[node name="Icon" parent="CanvasLayer" index="1"]
+visible = true
+position = Vector2( 510.952, 306.188 )
+scale = Vector2( 16.043, 9.7144 )
+
+[editable path="CanvasLayer"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/characters/npc.png" type="Texture" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://bot.gd" type="Script" id=2]
 [ext_resource path="res://canvas.gd" type="Script" id=3]
 
