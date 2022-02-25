@@ -9,7 +9,7 @@ var PhraseNum = 0
 var finished = false
 var Player 
 func _ready():
-	Player = load("res://Investigator.tscn")
+	Player = load("res://Invesitigator.tscn")
 	$ColorRect/Timer.wait_time = text_speed
 	dialog = getDialog()
 	nextPhrase()
@@ -18,7 +18,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		if finished:
 			nextPhrase()
-			var Player_Instance = Player.instance()
+			var Player_InsTance = Player.instance()
 			counter += 1
 			
 	

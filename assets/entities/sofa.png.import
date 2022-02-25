@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pixil-frame-0_25.png-8667ae060799407916a076534e7ecb8b.stex"
+path="res://.import/sofa.png-11a15b0b35d68c34437fc4a54fe30766.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/pixil-frame-0_25.png"
-dest_files=[ "res://.import/pixil-frame-0_25.png-8667ae060799407916a076534e7ecb8b.stex" ]
+source_file="res://assets/entities/sofa.png"
+dest_files=[ "res://.import/sofa.png-11a15b0b35d68c34437fc4a54fe30766.stex" ]
 
 [params]
 
