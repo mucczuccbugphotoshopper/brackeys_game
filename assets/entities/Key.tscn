@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Key.gd" type="Script" id=1]
+[ext_resource path="res://assets/entities/key.pxo" type="Texture" id=2]
+[ext_resource path="res://item.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 2.98206
+height = 6.88465
+
+[node name="Key" type="Area2D"]
+scale = Vector2( -6.03608, 8.40546 )
+collision_layer = 128
+collision_mask = 2
+script = ExtResource( 1 )
+level_changer = ExtResource( 3 )
+
+[node name="Key" type="Sprite" parent="."]
+position = Vector2( 0.497011, 2.26043 )
+scale = Vector2( 0.291176, 0.276143 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.356911 )
+shape = SubResource( 1 )
+
+[connection signal="area_entered" from="." to="." method="_on_Key_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Key_body_entered"]

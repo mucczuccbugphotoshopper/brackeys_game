@@ -43,6 +43,7 @@ func _physics_process(delta):
 		speed = default_speed
 	
 	if gun_mode:
+		start.flashlight = false
 		pickup_items.presets_powerup()
 		shoot = true
 		
@@ -54,8 +55,9 @@ func _physics_process(delta):
 		
 		else:
 			$gun/Pistol.visible = true
-	
 	if light_mode:
+		$light/Flashlight1/PotChecker/CollisionShape2D.disabled = false
+		start.flashlight = true
 		pickup_items.presets_powerup()
 		shoot = false
 		

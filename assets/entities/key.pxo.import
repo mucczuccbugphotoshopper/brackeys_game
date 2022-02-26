@@ -1,0 +1,13 @@
+[remap]
+
+importer="com.technohacker.pixelorama"
+type="StreamTexture"
+path="res://.import/key.pxo-39ff83a438187cbbc5028fd62082939e.stex"
+
+[deps]
+
+source_file="res://assets/entities/key.pxo"
+dest_files=[ "res://.import/key.pxo-39ff83a438187cbbc5028fd62082939e.stex" ]
+
+[params]
+

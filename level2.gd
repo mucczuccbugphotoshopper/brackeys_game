@@ -14,4 +14,3 @@ func _physics_process(delta: float) -> void:
 	else:
 		Player.speed = 190
 	print(Dia.PhraseNum) 
-#MAKE ITEMS BEING ABLE TO BE FOUND 

@@ -1,16 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Investigator.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://gun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/entities/Pot.tscn" type="PackedScene" id=3]
+[ext_resource path="res://flashlight.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/entities/Key.tscn" type="PackedScene" id=5]
 
 [node name="Level3" type="Node2D"]
 
 [node name="Investigator" parent="." instance=ExtResource( 1 )]
-position = Vector2( 753, 346 )
+position = Vector2( 740, 357 )
 
-[node name="Enemy" parent="." instance=ExtResource( 2 )]
-position = Vector2( 655, 276 )
+[node name="gun" parent="." instance=ExtResource( 2 )]
+position = Vector2( 520, 176 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-zoom = Vector2( 10, 10 )
+[node name="flashlight" parent="." groups=["flashlight"] instance=ExtResource( 4 )]
+position = Vector2( 515, 426 )
+
+[node name="Pot2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 255, 273 )
+
+[node name="Key" parent="." instance=ExtResource( 5 )]
+position = Vector2( 130, 401 )

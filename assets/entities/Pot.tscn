@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/entities/pot.pxo" type="Texture" id=1]
+[ext_resource path="res://Pot.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://assets/entities/key.pxo" type="Texture" id=4]
+[ext_resource path="res://test.tscn" type="PackedScene" id=6]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 13.0
+height = 26.0
+
+[node name="Pot" type="Area2D"]
+collision_layer = 64
+collision_mask = 48
+script = ExtResource( 2 )
+level_changer = ExtResource( 6 )
+
+[node name="EE" type="Sprite" parent="."]
+position = Vector2( 2, 8 )
+texture = ExtResource( 4 )
+
+[node name="Enemy Placeholder" type="Sprite" parent="."]
+position = Vector2( -1.90735e-06, 5 )
+scale = Vector2( 0.390625, 0.421875 )
+texture = ExtResource( 3 )
+
+[node name="Pot" type="Sprite" parent="."]
+position = Vector2( 0, -8 )
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -1 )
+shape = SubResource( 1 )
+
+[connection signal="area_entered" from="." to="." method="_on_Pot_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_Pot_area_exited"]
+[connection signal="body_entered" from="." to="." method="_on_Pot_body_entered"]

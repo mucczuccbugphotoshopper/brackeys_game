@@ -8,8 +8,8 @@
 [ext_resource path="res://LampPost.tscn" type="PackedScene" id=6]
 [ext_resource path="res://flashlight.tscn" type="PackedScene" id=7]
 [ext_resource path="res://gun.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Chair.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Npc.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/entities/Pot.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Level3.tscn" type="PackedScene" id=10]
 
 [sub_resource type="TileSet" id=9]
 0/name = "tileset.png 0"
@@ -112,16 +112,8 @@ collision_mask = 2
 [node name="flashlight" parent="." instance=ExtResource( 7 )]
 position = Vector2( -277, 91 )
 
-[node name="Chair" parent="." instance=ExtResource( 9 )]
-position = Vector2( -519, -19 )
-
-[node name="Npc" parent="." instance=ExtResource( 10 )]
-position = Vector2( -841, 6 )
-
 [node name="Investigator" parent="." instance=ExtResource( 1 )]
 position = Vector2( -153, -56 )
-collision_layer = 2
-collision_mask = 5
 
 [node name="Camera2D" type="Camera2D" parent="Investigator"]
 position = Vector2( -651, -342 )
@@ -133,5 +125,14 @@ limit_bottom = 250
 smoothing_enabled = true
 smoothing_speed = 4.0
 script = ExtResource( 5 )
+
+[node name="Pot" parent="." instance=ExtResource( 9 )]
+position = Vector2( -690, 33 )
+enemy_inside = true
+
+[node name="Pot2" parent="." instance=ExtResource( 9 )]
+position = Vector2( -452, 18 )
+scale = Vector2( 1.09112, 0.966701 )
+level_changer = ExtResource( 10 )
 
 [editable path="CanvasLayer"]
