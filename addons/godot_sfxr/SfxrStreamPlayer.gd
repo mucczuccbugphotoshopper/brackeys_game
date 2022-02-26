@@ -291,7 +291,7 @@ func _presets_explosion():
 		p_arp_mod = 0.8 - frnd(1.6)
 
 
-func _presets_powerup():
+func presets_powerup():
 	_set_defaults()
 	if rnd(1):
 		wave_type = SfxrGlobals.WAVE_SHAPES.SAWTOOTH

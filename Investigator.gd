@@ -1,17 +1,26 @@
 extends KinematicBody2D
 
-var direction = "idle"
-var speed = default_speed
-var held_directions = []
+onready var pickup_items = get_node("SFX/PickupItems")
 
 export(int) var default_speed = 190
 export(int) var run_speed = 240
 export(int) var health = 100
+
+export(PackedScene) var light_scene = preload("res://flashlight.tscn")
+export(PackedScene) var gun_scene = preload("res://gun.tscn")
+
+var direction = "idle"
+var speed = default_speed
+var held_directions = []
+
 var Velocity = Vector2()
+
+var bullet = preload("res://bullet.tscn")
+
 var gun_mode = false
 var light_mode = false
-var bullet = preload("res://bullet.tscn")
 var shoot = false
+
 
 func _physics_process(delta):
 	Velocity = Vector2()
@@ -19,7 +28,7 @@ func _physics_process(delta):
 		Velocity.x = speed
 		$Character.texture = load("res://assets/characters/blue char/blue char left.png")
 	if Input.is_action_pressed("move_left"):
-		Velocity.x = -speed		
+		Velocity.x = -speed
 		$Character.texture = load("res://assets/characters/blue char/blue char right.png")
 	if Input.is_action_pressed("move_down"):
 		Velocity.y = speed
@@ -32,16 +41,33 @@ func _physics_process(delta):
 		speed = run_speed
 	else:
 		speed = default_speed
-	if not light_mode:
-		if gun_mode:
-			$gun/Pistol.visible = true
-			shoot = true
-			
-	if not gun_mode:
+	
+	if gun_mode:
+		pickup_items.presets_powerup()
+		shoot = true
+		
 		if light_mode:
+			light_mode = false
+			$light/Flashlight1/Light2D.visible = false
+			$light/Flashlight1.visible = false
+			$gun/Pistol.visible = true
+		
+		else:
+			$gun/Pistol.visible = true
+	
+	if light_mode:
+		pickup_items.presets_powerup()
+		shoot = false
+		
+		if gun_mode:
+			gun_mode = false
+			$gun/Pistol.visible = false
 			$light/Flashlight1/Light2D.visible = true
 			$light/Flashlight1.visible = true
-			shoot = false
+		
+		else:
+			$light/Flashlight1/Light2D.visible = true
+			$light/Flashlight1.visible = true
 		
 	if Velocity.length() > 0:
 		$anim_player.play("walking")
@@ -52,7 +78,8 @@ func _physics_process(delta):
 		$Character.texture = load("res://assets/characters/blue char/blue char.png")
 		
 	Velocity = move_and_slide(Velocity)
-	
+
+
 func _get_movement(dir):
 	var vectors = {
 		"left" : Vector2(-speed,0),
@@ -62,6 +89,7 @@ func _get_movement(dir):
 	}
 	return vectors[dir]
 
+
 func _input(event):
 	if shoot:
 		if event is InputEventMouseButton and event.is_pressed():
@@ -69,5 +97,3 @@ func _input(event):
 			get_parent().add_child(bullet_instance)
 			bullet_instance.global_position = $gun/Position2D.global_position
 			bullet_instance.rotation = $gun.rotation
-
-
