@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Investigator.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=2]
+
+[node name="Level3" type="Node2D"]
+
+[node name="Investigator" parent="." instance=ExtResource( 1 )]
+position = Vector2( 753, 346 )
+
+[node name="Enemy" parent="." instance=ExtResource( 2 )]
+position = Vector2( 655, 276 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 10, 10 )

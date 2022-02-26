@@ -9,8 +9,9 @@ func _ready() -> void:
 	print(Dia.PhraseNum)
 
 func _physics_process(delta: float) -> void:
-	if Dia.PhraseNum != 4:
+	if Dia.PhraseNum != 6:
 		Player.speed = 0
 	else:
 		Player.speed = 190
-	print(Dia.PhraseNum)
+	print(Dia.PhraseNum) 
+#MAKE ITEMS BEING ABLE TO BE FOUND 

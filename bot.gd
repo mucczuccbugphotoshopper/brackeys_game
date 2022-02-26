@@ -3,7 +3,7 @@ extends KinematicBody2D
 var is_imposter = rand_range(0,1)
 var motion = Vector2()
 var state
-var dialugoe = preload("res://Dialogue_system.tscn")
+var dialugoe = preload("res://Dialogue_System.tscn")
 var Player = preload("res://Investigator.tscn")
 var follow = false
 
