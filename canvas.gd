@@ -1,6 +1,8 @@
 extends CanvasLayer
 
-var dialogue = preload("res://Dialogue_System.tscn")
-
+var dialugoe = preload("res://Dialoge_system.tscn")
 func _ready():
 	pass
+
+
+

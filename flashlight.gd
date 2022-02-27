@@ -16,12 +16,7 @@ func _ready():
 #	pass
 
 func _on_flashlight_body_entered(body):
-	print("E")
-	if "Investigator" in body.name:
+	if "Invesitigator" in body.name:
 		if not body.gun_mode:
 			queue_free()
 		body.light_mode = true
-
-
-func _on_Area2D_area_entered(area: Area2D) -> void:
-	print("")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://Investigator.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Invesitigator.tscn" type="PackedScene" id=1]
 [ext_resource path="res://item.tscn" type="PackedScene" id=2]
-[ext_resource path="res://CanvasLayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://Camera2D.gd" type="Script" id=4]
 [ext_resource path="res://Game.gd" type="Script" id=5]
+[ext_resource path="res://Dialoge_system.tscn" type="PackedScene" id=6]
 [ext_resource path="res://flashlight.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/tileset/tileset.png" type="Texture" id=8]
 [ext_resource path="res://Npc.tscn" type="PackedScene" id=9]
@@ -40,7 +41,7 @@ glow_blend_mode = 0
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="ConvexPolygonShape2D" id=13]
+[sub_resource type="ConvexPolygonShape2D" id=8]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
 [sub_resource type="TileSet" id=9]
@@ -54,17 +55,279 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 13 )
+0/shape = SubResource( 8 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 13 ),
+"shape": SubResource( 8 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
+
+[sub_resource type="Shader" id=7]
+code = "
+
+shader_type canvas_item;
+
+
+uniform bool overlay = false;
+
+uniform float scanlines_opacity : hint_range(0.0, 1.0) = 0.4;
+uniform float scanlines_width : hint_range(0.0, 0.5) = 0.25;
+uniform float grille_opacity : hint_range(0.0, 1.0) = 0.3;
+uniform vec2 resolution = vec2(640.0, 480.0); 
+
+uniform bool pixelate = true; 
+
+uniform bool roll = true;
+uniform float roll_speed = 8.0; 
+uniform float roll_size : hint_range(0.0, 100.0) = 15.0;
+uniform float roll_variation : hint_range(0.1, 5.0) = 1.8;
+uniform float distort_intensity : hint_range(0.0, 0.2) = 0.05; 
+
+uniform float noise_opacity : hint_range(0.0, 1.0) = 0.4;
+uniform float noise_speed = 5.0;
+
+uniform float static_noise_intensity : hint_range(0.0, 1.0) = 0.06;
+
+uniform float aberration : hint_range(-1.0, 1.0) = 0.03; 
+uniform float brightness = 1.4; 
+uniform bool discolor = true; 
+
+uniform float warp_amount :hint_range(0.0, 5.0) = 1.0; 
+uniform bool clip_warp = false;
+
+uniform float vignette_intensity = 0.4; 
+uniform float vignette_opacity : hint_range(0.0, 1.0) = 0.5;
+
+
+vec2 random(vec2 uv){
+    uv = vec2( dot(uv, vec2(127.1,311.7) ),
+               dot(uv, vec2(269.5,183.3) ) );
+    return -1.0 + 2.0 * fract(sin(uv) * 43758.5453123);
+}
+
+
+float noise(vec2 uv) {
+    vec2 uv_index = floor(uv);
+    vec2 uv_fract = fract(uv);
+
+    vec2 blur = smoothstep(0.0, 1.0, uv_fract);
+
+    return mix( mix( dot( random(uv_index + vec2(0.0,0.0) ), uv_fract - vec2(0.0,0.0) ),
+                     dot( random(uv_index + vec2(1.0,0.0) ), uv_fract - vec2(1.0,0.0) ), blur.x),
+                mix( dot( random(uv_index + vec2(0.0,1.0) ), uv_fract - vec2(0.0,1.0) ),
+                     dot( random(uv_index + vec2(1.0,1.0) ), uv_fract - vec2(1.0,1.0) ), blur.x), blur.y) * 0.5 + 0.5;
+}
+
+
+vec2 warp(vec2 uv){
+	vec2 delta = uv - 0.5;
+	float delta2 = dot(delta.xy, delta.xy);
+	float delta4 = delta2 * delta2;
+	float delta_offset = delta4 * warp_amount;
+	
+	return uv + delta * delta_offset;
+}
+
+float border (vec2 uv){
+	float radius = min(warp_amount, 0.08);
+	radius = max(min(min(abs(radius * 2.0), abs(1.0)), abs(1.0)), 1e-5);
+	vec2 abs_uv = abs(uv * 2.0 - 1.0) - vec2(1.0, 1.0) + radius;
+	float dist = length(max(vec2(0.0), abs_uv)) / radius;
+	float square = smoothstep(0.96, 1.0, dist);
+	return clamp(1.0 - square, 0.0, 1.0);
+}
+
+
+float vignette(vec2 uv){
+	uv *= 1.0 - uv.xy;
+	float vignette = uv.x * uv.y * 15.0;
+	return pow(vignette, vignette_intensity * vignette_opacity);
+}
+
+void fragment()
+{
+	vec2 uv = overlay ? warp(SCREEN_UV) : warp(UV); 
+	vec2 text_uv = uv;
+	vec2 roll_uv = vec2(0.0);
+	float time = roll ? TIME : 0.0;
+	
+
+
+	if (pixelate)
+	{
+		text_uv = ceil(uv * resolution) / resolution;
+	}
+	
+	
+	float roll_line = 0.0;
+	if (roll || noise_opacity > 0.0)
+	{
+		
+		roll_line = smoothstep(0.3, 0.9, sin(uv.y * roll_size - (time * roll_speed) ) );
+
+		roll_line *= roll_line * smoothstep(0.3, 0.9, sin(uv.y * roll_size * roll_variation - (time * roll_speed * roll_variation) ) );
+		
+		roll_uv = vec2(( roll_line * distort_intensity * (1.-UV.x)), 0.0);
+	}
+	
+	vec4 text;
+	if (roll)
+	{
+		
+		text.r = texture(SCREEN_TEXTURE, text_uv + roll_uv * 0.8 + vec2(aberration, 0.0) * .1).r;
+		text.g = texture(SCREEN_TEXTURE, text_uv + roll_uv * 1.2 - vec2(aberration, 0.0) * .1 ).g;
+		text.b = texture(SCREEN_TEXTURE, text_uv + roll_uv).b;
+		text.a = 1.0;
+	}
+	else
+	{
+		
+		text.r = texture(SCREEN_TEXTURE, text_uv + vec2(aberration, 0.0) * .1).r;
+		text.g = texture(SCREEN_TEXTURE, text_uv - vec2(aberration, 0.0) * .1).g;
+		text.b = texture(SCREEN_TEXTURE, text_uv).b;
+		text.a = 1.0;
+	}
+	//never gonna give you up!
+	float r = text.r;
+	float g = text.g;
+	float b = text.b;
+	
+	uv = warp(UV);
+	
+	if (grille_opacity > 0.0){
+		
+		float g_r = smoothstep(0.85, 0.95, abs(sin(uv.x * (resolution.x * 3.14159265))));
+		r = mix(r, r * g_r, grille_opacity);
+		
+		float g_g = smoothstep(0.85, 0.95, abs(sin(1.05 + uv.x * (resolution.x * 3.14159265))));
+		g = mix(g, g * g_g, grille_opacity);
+		
+		float b_b = smoothstep(0.85, 0.95, abs(sin(2.1 + uv.x * (resolution.x * 3.14159265))));
+		b = mix(b, b * b_b, grille_opacity);
+		
+	}
+	
+	
+	text.r = clamp(r * brightness, 0.0, 1.0);
+	text.g = clamp(g * brightness, 0.0, 1.0);
+	text.b = clamp(b * brightness, 0.0, 1.0);
+	
+	
+	float scanlines = 0.5;
+	if (scanlines_opacity > 0.0)
+	{
+		
+		scanlines = smoothstep(scanlines_width, scanlines_width + 0.5, abs(sin(uv.y * (resolution.y * 3.14159265))));
+		text.rgb = mix(text.rgb, text.rgb * vec3(scanlines), scanlines_opacity);
+	}
+	
+	
+	if (noise_opacity > 0.0)
+	{
+		
+		float noise = smoothstep(0.4, 0.5, noise(uv * vec2(2.0, 200.0) + vec2(10.0, (TIME * (noise_speed))) ) );
+		
+		
+		roll_line *= noise * scanlines * clamp(random((ceil(uv * resolution) / resolution) + vec2(TIME * 0.8, 0.0)).x + 0.8, 0.0, 1.0);
+
+		text.rgb = clamp(mix(text.rgb, text.rgb + roll_line, noise_opacity), vec3(0.0), vec3(1.0));
+	}
+	
+
+	if (static_noise_intensity > 0.0)
+	{
+		text.rgb += clamp(random((ceil(uv * resolution) / resolution) + fract(TIME)).x, 0.0, 1.0) * static_noise_intensity;
+	}
+	
+	
+	text.rgb *= border(uv);
+	text.rgb *= vignette(uv);
+	
+	if (clip_warp)
+	{
+		text.a = border(uv);
+	}
+	float saturation = 0.5;
+	float contrast = 1.2;
+	if (discolor)
+	{
+		// Saturation
+		vec3 greyscale = vec3(text.r + text.g + text.b) / 3.;
+		text.rgb = mix(text.rgb, greyscale, saturation);
+		
+		// Contrast
+		float midpoint = pow(0.5, 2.2);
+		text.rgb = (text.rgb - vec3(midpoint)) * contrast + midpoint;
+	}
+	
+	COLOR = text;
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 7 )
+shader_param/overlay = false
+shader_param/scanlines_opacity = 0.4
+shader_param/scanlines_width = 0.25
+shader_param/grille_opacity = 0.3
+shader_param/resolution = Vector2( 1280, 960 )
+shader_param/pixelate = false
+shader_param/roll = true
+shader_param/roll_speed = 3.0
+shader_param/roll_size = 10.0
+shader_param/roll_variation = 4.0
+shader_param/distort_intensity = 0.2
+shader_param/noise_opacity = 0.5
+shader_param/noise_speed = 1.0
+shader_param/static_noise_intensity = 0.06
+shader_param/aberration = -0.015
+shader_param/brightness = 1.4
+shader_param/discolor = true
+shader_param/warp_amount = 1.0
+shader_param/clip_warp = false
+shader_param/vignette_intensity = 0.3
+shader_param/vignette_opacity = 0.5
+
+[sub_resource type="Shader" id=13]
+code = "shader_type canvas_item;
+
+uniform vec2 size = vec2( 64.0, 48.0 );
+
+void fragment( )
+{
+	vec2 norm_size = size * SCREEN_PIXEL_SIZE;
+	bool half = mod( SCREEN_UV.y / 2.0, norm_size.y ) / norm_size.y < 0.5;
+	vec2 uv = SCREEN_UV + vec2( norm_size.x * 0.5 * float( half ), 0.0 );
+	vec2 center_uv = floor( uv / norm_size ) * norm_size;
+	vec2 norm_uv = mod( uv, norm_size ) / norm_size;
+	center_uv += mix(
+		vec2( 0.0, 0.0 )
+	,	mix(
+			mix(
+				vec2( norm_size.x, -norm_size.y )
+			,	vec2( 0.0, -norm_size.y )
+			,	float( norm_uv.x < 0.5 )
+			)
+		,	mix(
+				vec2( 0.0, -norm_size.y )
+			,	vec2( -norm_size.x, -norm_size.y )
+			,	float( norm_uv.x < 0.5 )
+			)
+		,	float( half )
+		)
+	,	float( norm_uv.y < 0.3333333 ) * float( norm_uv.y / 0.3333333 < ( abs( norm_uv.x - 0.5 ) * 2.0 ) )
+	);
+
+	COLOR = textureLod( SCREEN_TEXTURE, center_uv, 0.0 );
+}"
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = SubResource( 13 )
+shader_param/size = Vector2( 7, 7 )
 
 [sub_resource type="ShaderMaterial" id=12]
 
@@ -117,9 +380,10 @@ position = Vector2( 118, 1 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
 
-[node name="Investigator" parent="." instance=ExtResource( 1 )]
+[node name="Invesitigator" parent="." instance=ExtResource( 1 )]
+position = Vector2( 5, 1 )
 
-[node name="Camera2D" type="Camera2D" parent="Investigator"]
+[node name="Camera2D" type="Camera2D" parent="Invesitigator"]
 current = true
 limit_left = -1180
 limit_top = -340
@@ -131,7 +395,26 @@ script = ExtResource( 4 )
 
 [node name="Lamps" type="MultiMeshInstance2D" parent="."]
 
-[node name="CanvasLayer" parent="." instance=ExtResource( 3 )]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Dialoge_system" parent="CanvasLayer" instance=ExtResource( 6 )]
+dialogPath = "res://level1.json"
+
+[node name="Icon" type="Sprite" parent="CanvasLayer"]
+visible = false
+material = SubResource( 5 )
+position = Vector2( 516.014, 301.229 )
+rotation = -3.13639
+scale = Vector2( 16.043, 9.22861 )
+texture = ExtResource( 3 )
+flip_h = true
+
+[node name="Icon2" type="Sprite" parent="CanvasLayer"]
+visible = false
+material = SubResource( 14 )
+position = Vector2( 527, 273 )
+scale = Vector2( 21.7266, 13.1328 )
+texture = ExtResource( 3 )
 
 [node name="flashlight" parent="." instance=ExtResource( 7 )]
 position = Vector2( 676, 310 )
@@ -142,8 +425,10 @@ position = Vector2( 110, -11 )
 scale = Vector2( 1, 0.9 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.066
 
+[connection signal="body_entered" from="Invesitigator/collider" to="CanvasLayer" method="_on_collider_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
+[editable path="Invesitigator"]
 [editable path="Npc"]

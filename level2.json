@@ -1,8 +1,5 @@
 [
-	{"Name": "John", "Text" : "WHERE AM I?!" },
-	{"Name": "Jack", "Text" : "You are trapped in this game"},
-	{"Name": "John", "Text": "..."},
-	{"Name": "Jack", "Text": "If you can find out who's real and who's fake..."},
-	{"Name": "Jack", "Text": "You can leave I suppose"},
-	{"Name": "John", "Text": "I WILL FIND OUT AND I WILL LEAVE THIS GAME"}
+    { "Name" : "Ash", "Text" : "Where Am I?" },
+    { "Name" : "?", "Text" : "Welcome to my worlds :)))))))))))))" },
+    { "Name" : "Ash", "Text" : "what?!"}
 ]

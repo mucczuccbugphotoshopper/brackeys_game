@@ -6,40 +6,54 @@ enum {
 	ATTACK
 }
 
-var state = WANDERING
+var state = RUN
 
-var player = null
+var player_load = preload("res://Invesitigator.tscn") 
 
-var velocity := Vector2.ZERO
 
-export var speed := 20
+var move = Vector2.ZERO
+
+export var speed := 4
 export var accel := 5
+var player = null
 export(Vector2) var distance_to_position := Vector2(50, 50)
+var p
+var health = 60;
 
-func _process(delta: float) -> void:
-	match state:
-		WANDERING:
-		#PLAY IDLE
-			var distance = (distance_to_position - global_position)
-			velocity = velocity.move_toward(distance * speed, accel * delta )
-			print(global_position)
-		RUN:
-			var direction = (player.global_position - global_position).normalized()
-			velocity = velocity.move_toward(direction * speed, accel * delta)
-			print("RIUN")
-		ATTACK:
-			pass
-	velocity = move_and_slide(velocity)
+func _physics_process(delta):
+	move = Vector2.ZERO
+	p = rand_range(2,15)
+	if player != null:
+		move = position.direction_to(player.position) 
+		$Placeholder.texture = load("res://assets/characters/gltch.png")
+		$Placeholder.material.set_shader_param("p",p);
+	else:
+		move = Vector2.ZERO
+	
+		$Placeholder.texture = load("res://assets/characters/npc.png")
+		$Placeholder.material.set_shader_param("p",1);
+		
+	
+	if health < 1:
+		queue_free()
+		get_tree().change_scene("res://good_end.tscn")
+	
+	print(health)
+	
+	
+		
+	move = move.normalized() * speed
+	move = move_and_collide(move)
 
 
 
+func _on_PlayerChecker_body_entered(body):
+	
+	if body != self and "Invesitigator" in body.name:
+		player = body
+	print("collided")
 
-func _on_PlayerChecker_body_entered(body: Node) -> void:
-	state = RUN
-	player = body
-	print(player.get_class())
 
-
-func _on_PlayerChecker_body_exited(body: Node) -> void:
-	state = WANDERING
+func _on_PlayerChecker_body_exited(body):
 	player = null
+

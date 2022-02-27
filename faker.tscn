@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/characters/npc.png" type="Texture" id=1]
+
+[node name="faker" type="KinematicBody2D"]
+
+[node name="Npc" type="Sprite" parent="."]
+position = Vector2( -4, 0 )
+scale = Vector2( 0.769231, 0.701613 )
+texture = ExtResource( 1 )
